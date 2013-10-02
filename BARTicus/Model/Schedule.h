@@ -1,0 +1,16 @@
+//
+//  Schedule.h
+//  BARTicus
+//
+//  Created by Neal Hardesty on 10/1/13.
+//  Copyright (c) 2013 RoadWaffle Software. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "Station.h"
+
+@interface Schedule : NSObject
+@property (nonatomic, strong) NSDate *time;
+@property (nonatomic, strong) NSString *station; // station abbreviation
+@property (nonatomic, strong) NSMutableArray *trains;
+@end
