@@ -17,6 +17,8 @@
 @interface BARTApi : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) NSArray *stations;
+@property (nonatomic, strong, readonly) NSDictionary *stationsByAbbreviation;
+
 - (Station *)findClosestStation;
 - (Schedule *)getScheduleForStation:(Station *)station;
 @end

@@ -23,6 +23,14 @@
     return _stations;
 }
 
+- (NSDictionary *)stationsByAbbreviations
+{
+    if(!_stationsByAbbreviations)
+        _stationsByAbbreviations = [[NSMutableDictionary alloc] init];
+    
+    return _stationsByAbbreviations;
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
 {   
     if([elementName isEqualToString:@"station"]) {
@@ -39,6 +47,8 @@
 {
     if([elementName isEqualToString:@"station"]) {
         [self.stations addObject:self.currentStation];
+        [self.stationsByAbbreviations setObject:self.currentStation
+                                         forKey:self.currentStation.abbreviation];
         self.currentStation = nil;
     } else if([elementName isEqualToString:@"name"]) {
         self.currentStation.name = self.valueBuffer;

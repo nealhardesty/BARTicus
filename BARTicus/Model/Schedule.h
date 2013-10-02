@@ -8,9 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "Station.h"
+#import "Train.h"
 
 @interface Schedule : NSObject
 @property (nonatomic, strong) NSDate *time;
 @property (nonatomic, strong) NSString *station; // station abbreviation
 @property (nonatomic, strong) NSMutableArray *trains;
+@property (nonatomic, strong) NSMutableDictionary *trainsByDestination; // dict of trains by station abbr
+
+- (void)addTrain:(Train *)train;
+- (NSArray *)getTrainsGroupedByDestinationSortedByTime;
 @end

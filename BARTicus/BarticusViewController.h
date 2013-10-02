@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BarticusViewController : UITableViewController
+@interface BarticusViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 @end

@@ -16,20 +16,25 @@
 
 @implementation BARTApi
 
+@synthesize stationsByAbbreviation = _stationsByAbbreviation;
+
+// Turn on the network activity indicator
 - (void)beginNetworkActivity
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
+// Turn off the network activity indicator
 - (void)endNetworkActivity
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
+// Try and load a Schedule for the specified station
 - (Schedule *)getScheduleForStation:(Station *)station
 {
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:API_ETD,station.abbreviation]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:API_ETD, station.abbreviation]];
     [self beginNetworkActivity];
     NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
     ParserSchedule *scheduleParser = [[ParserSchedule alloc] initWithParser:parser];
@@ -42,14 +47,16 @@
 - (NSArray *)stations
 {
     if(!_stations) {
-        _stations = [[NSArray alloc] init];
+        NSURL *url = [NSURL URLWithString:API_STATION];
+        [self beginNetworkActivity];
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+        ParserStations *stationParser = [[ParserStations alloc] initWithParser:parser];
+        [self endNetworkActivity];
         
-        [self initStations:_stations];
+        _stations = stationParser.stations;
+        _stationsByAbbreviation = stationParser.stationsByAbbreviations;
     }
-    
-    CLLocationCoordinate2D coord = [self getLocation];
-    NSLog(@"lat/long: %f/%f", coord.latitude, coord.longitude);
-    
+
     return _stations;
 }
 
@@ -101,14 +108,4 @@
     return coord;
 }
 
-- (void)initStations: (NSArray *)stations
-{
-    NSURL *url = [NSURL URLWithString:API_STATION];
-    [self beginNetworkActivity];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    ParserStations *stationParser = [[ParserStations alloc] initWithParser:parser];
-    [self endNetworkActivity];
-    
-    self.stations = stationParser.stations;
-}
 @end

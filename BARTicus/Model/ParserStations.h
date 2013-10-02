@@ -11,5 +11,6 @@
 
 @interface ParserStations : ParserBase
 @property (nonatomic, strong) NSMutableArray *stations;
+@property (nonatomic, strong) NSMutableDictionary *stationsByAbbreviations;
 
 @end

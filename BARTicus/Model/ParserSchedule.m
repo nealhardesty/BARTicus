@@ -23,7 +23,16 @@
 {
     if([elementName isEqualToString:@"estimate"]) {
         self.currentTrain = [[Train alloc] init];
+    } else if([elementName isEqualToString:@"station"]) {
+        self.schedule = [[Schedule alloc] init];
+        self.schedule.trains = [[NSMutableArray alloc] init]; // TODO move to Schedule
+        self.schedule.trainsByDestination = [[NSMutableDictionary alloc] init]; // TODO move to Schedule
     }
+}
+
+- (void)setStation:(Station *)station {
+    _station = station;
+    self.schedule.station = station.abbreviation;
 }
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
@@ -34,7 +43,9 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if([elementName isEqualToString:@"estimate"]) {
-        [self.schedule.trains addObject:self.currentTrain];
+        self.currentTrain.destination = self.currentDestinationAbbreviation;
+        //NSLog(@"got train: %@", self.currentTrain);
+        [self.schedule addTrain:self.currentTrain];
         self.currentTrain = nil;
     } else if([elementName isEqualToString:@"abbreviation"]) {
         // Current destination abbreviation
@@ -50,7 +61,9 @@
     } else if([elementName isEqualToString:@"hexcolor"]) {
         self.currentTrain.hexcolor = self.valueBuffer;
     } else if([elementName isEqualToString:@"bikeflag"]) {
-        self.currentTrain.platform = [self.valueBuffer boolValue];
+        self.currentTrain.bikeflag = [self.valueBuffer boolValue];
+    } else if([elementName isEqualToString:@"station"]) {
+        self.schedule.time = [[NSDate alloc] init];
     }
 
     self.valueBuffer = nil;

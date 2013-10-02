@@ -15,5 +15,5 @@
 @property (nonatomic) short platform;
 @property (nonatomic) short length; // # of cars
 @property (nonatomic) BOOL bikeflag; // allowed?
-@property (nonatomic, strong) NSString *hexcolor;
+@property (nonatomic, strong) NSString *hexcolor; // Icon color suggestion
 @end
