@@ -18,4 +18,5 @@
 
 - (void)addTrain:(Train *)train;
 - (NSArray *)getTrainsGroupedByDestinationSortedByTime;
+- (NSArray *)getTrainsForDestination:(NSString *)destinationAbbreviation;
 @end

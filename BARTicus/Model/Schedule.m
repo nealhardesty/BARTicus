@@ -56,9 +56,12 @@
         }
     }];
     
-    
-    
     // todo: actually ensure that the order the api returned to us is sorted
     return destinations;
+}
+
+- (NSArray *)getTrainsForDestination:(NSString *)destinationAbbreviation
+{
+    return self.trainsByDestination[destinationAbbreviation];
 }
 @end

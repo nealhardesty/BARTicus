@@ -10,6 +10,10 @@
 #import "ParserStations.h"
 #import "ParserSchedule.h"
 
+
+#define API_STATION @"http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V"
+#define API_ETD @"http://api.bart.gov/api/etd.aspx?cmd=etd&key=MW9S-E7SL-26DU-VV8V&orig=%@"
+
 @interface BARTApi()
 
 @end

@@ -52,7 +52,11 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [NSString stringWithFormat:@"%@\nDepartures",self.closestStation.name];
+    if(self.closestStation) {
+        return [NSString stringWithFormat:@"%@\nDepartures",self.closestStation.name];
+    } else {
+        return @"Loading Departures...";
+    }
 }
 
 - (BARTApi *)bartapi {
@@ -65,7 +69,7 @@
 
 // Triggered by the refresh indicator turning on/off
 - (IBAction)refreshAction:(UIRefreshControl *)sender {
-    NSLog(@"got refresh action");
+    //NSLog(@"got refresh action");
     if(sender.refreshing) {
         [self doRefresh];
     }
@@ -74,8 +78,8 @@
 // This actually does the API refresh
 - (void)doRefresh
 {
-    NSLog(@"got refresh");
-    dispatch_async(dispatch_queue_create("testing", NULL), ^{
+    //NSLog(@"got refresh");
+    dispatch_async(dispatch_queue_create("Reload Data", NULL), ^{
         self.closestStation = [self.bartapi findClosestStation];
         //NSLog(@"closest: %@", closest);
 
