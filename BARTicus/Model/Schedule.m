@@ -42,9 +42,23 @@
  */
 - (NSArray *)getTrainsGroupedByDestinationSortedByTime
 {
-    NSArray *destinations = [self.trainsByDestination allValues];
-    // todo, sort the destinations
-    // todo, actually ensure that the order the api returned to us is sorted
+    NSArray *destinations = [[self.trainsByDestination allValues] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSArray *trains1 = (NSArray *)obj1;
+        NSArray *trains2 = (NSArray *)obj2;
+        Train *trainFromTrains1 = (Train *)trains1[0];
+        Train *trainFromTrains2 = (Train *)trains2[0];
+        if(trainFromTrains1.minutes == trainFromTrains2.minutes) {
+            return (NSComparisonResult)NSOrderedSame;
+        } else if(trainFromTrains1.minutes < trainFromTrains2.minutes) {
+            return (NSComparisonResult)NSOrderedAscending;
+        } else {
+            return (NSComparisonResult)NSOrderedDescending;
+        }
+    }];
+    
+    
+    
+    // todo: actually ensure that the order the api returned to us is sorted
     return destinations;
 }
 @end
