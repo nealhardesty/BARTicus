@@ -41,13 +41,22 @@
         cell.textLabel.text = destinationStation.name;
         if(first) {
             first=NO;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%i", train.minutes];
+            cell.detailTextLabel.text = [self formatMinutes:train.minutes];
         } else {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%hd", cell.detailTextLabel.text, train.minutes];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%@", cell.detailTextLabel.text, [self formatMinutes:train.minutes]];
         }
     }
     
     return cell;
+}
+
+- (NSString *)formatMinutes:(short)minutes {
+    if(minutes == 0) {
+        return @"<at station>";
+    } else {
+        return [NSString stringWithFormat:@"%hd", minutes];
+    }
+    
 }
 
 /*
@@ -101,10 +110,11 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDate *now = [[NSDate alloc] init];
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
-            [format setDateFormat:@"h:mm:ss a"];
-            NSString *lastUpdated = [NSString stringWithFormat:@"Last Updated %@", [format stringFromDate:now] ];
-            UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(doRefresh)];
-            [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:toolbarLabel, nil] animated:YES];
+            [format setDateFormat:@"'Last Updated' h:mm:ss a"];
+            NSString *lastUpdated = [format stringFromDate:now];
+            UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(showAndStartRefresh)];
+            UIBarButtonItem *flexiSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+            [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:flexiSpace, toolbarLabel, flexiSpace, nil] animated:YES];
             
         });
         
@@ -119,12 +129,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self showRefresh];
-    [self doRefresh];
+    [self showAndStartRefresh];
     
     [self.refreshControl addTarget:self
                             action:@selector(refreshAction:)
                   forControlEvents:UIControlEventValueChanged];
+}
+
+// Called from viewDidLoad and as callback for clicking refresh.
+- (void)showAndStartRefresh
+{
+    [self showRefresh];
+    [self doRefresh];
 }
 
 
