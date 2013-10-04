@@ -50,6 +50,7 @@
     return cell;
 }
 
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if(self.closestStation) {
@@ -58,6 +59,7 @@
         return @"Loading Departures...";
     }
 }
+ */
 
 - (BARTApi *)bartapi {
     if(!_bartapi) {
@@ -82,6 +84,12 @@
     dispatch_async(dispatch_queue_create("Reload Data", NULL), ^{
         self.closestStation = [self.bartapi findClosestStation];
         //NSLog(@"closest: %@", closest);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.title = self.closestStation.name;
+            
+        });
+        
 
         Schedule *schedule = [self.bartapi getScheduleForStation:self.closestStation];
         //NSLog(@"schedule: %@", schedule);
@@ -89,6 +97,16 @@
         self.currentTrainsGroupedByDestinationSortedByTime = [schedule getTrainsGroupedByDestinationSortedByTime];
         
         //NSLog(@"station info: %@", [self.bartapi.stationsByAbbreviation objectForKey:closest.abbreviation]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDate *now = [[NSDate alloc] init];
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            [format setDateFormat:@"h:mm:ss a"];
+            NSString *lastUpdated = [NSString stringWithFormat:@"Last Updated %@", [format stringFromDate:now] ];
+            UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(doRefresh)];
+            [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:toolbarLabel, nil] animated:YES];
+            
+        });
         
         //[NSThread sleepForTimeInterval:5];
         [self hideRefresh];

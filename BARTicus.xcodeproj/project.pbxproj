@@ -183,6 +183,11 @@
 				CLASSPREFIX = Barticus;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "RoadWaffle Software";
+				TargetAttributes = {
+					593D03BE17FB4EEA00B79EFB = {
+						DevelopmentTeam = GYN52PECLR;
+					};
+				};
 			};
 			buildConfigurationList = 593D03BA17FB4EEA00B79EFB /* Build configuration list for PBXProject "BARTicus" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -315,10 +320,13 @@
 		593D03E317FB4EEA00B79EFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BARTicus/BARTicus-Prefix.pch";
 				INFOPLIST_FILE = "BARTicus/BARTicus-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -326,10 +334,13 @@
 		593D03E417FB4EEA00B79EFB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BARTicus/BARTicus-Prefix.pch";
 				INFOPLIST_FILE = "BARTicus/BARTicus-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -353,6 +364,7 @@
 				593D03E417FB4EEA00B79EFB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
