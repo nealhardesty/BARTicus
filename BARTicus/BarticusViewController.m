@@ -115,13 +115,14 @@
             UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(showAndStartRefresh)];
             UIBarButtonItem *flexiSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
             [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:flexiSpace, toolbarLabel, flexiSpace, nil] animated:YES];
+
+            [self hideRefresh];
+            
+            [self.tableView reloadData];
             
         });
         
-        //[NSThread sleepForTimeInterval:5];
-        [self hideRefresh];
-        
-        [self.tableView reloadData];
+
     });
     
 }
