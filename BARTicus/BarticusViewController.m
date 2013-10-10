@@ -47,6 +47,8 @@
         }
     }
     
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ mins", cell.detailTextLabel.text];
+    
     return cell;
 }
 
@@ -115,7 +117,9 @@
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"'Last Updated' h:mm:ss a"];
             NSString *lastUpdated = [format stringFromDate:now];
-            UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(showAndStartRefresh)];
+            // UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:self action:@selector(showAndStartRefresh)];
+            UIBarButtonItem *toolbarLabel = [[UIBarButtonItem alloc] initWithTitle:lastUpdated style:UIBarButtonItemStylePlain target:nil action:nil];
+            toolbarLabel.enabled = NO;
             UIBarButtonItem *flexiSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
             [self.navigationController.toolbar setItems:[NSArray arrayWithObjects:flexiSpace, toolbarLabel, flexiSpace, nil] animated:YES];
 
