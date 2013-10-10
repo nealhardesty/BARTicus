@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5902FDBC1805E57200F4BFC8 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 5902FDBB1805E57200F4BFC8 /* Alerts.m */; };
+		5902FDBF1805E78D00F4BFC8 /* ParserAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 5902FDBE1805E78C00F4BFC8 /* ParserAlerts.m */; };
 		593D03C317FB4EEA00B79EFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C217FB4EEA00B79EFB /* UIKit.framework */; };
 		593D03C517FB4EEA00B79EFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C417FB4EEA00B79EFB /* Foundation.framework */; };
 		593D03C717FB4EEA00B79EFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C617FB4EEA00B79EFB /* CoreGraphics.framework */; };
@@ -29,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5902FDBA1805E57200F4BFC8 /* Alerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Alerts.h; path = Model/Alerts.h; sourceTree = "<group>"; };
+		5902FDBB1805E57200F4BFC8 /* Alerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Alerts.m; path = Model/Alerts.m; sourceTree = "<group>"; };
+		5902FDBD1805E78C00F4BFC8 /* ParserAlerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParserAlerts.h; path = Model/ParserAlerts.h; sourceTree = "<group>"; };
+		5902FDBE1805E78C00F4BFC8 /* ParserAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParserAlerts.m; path = Model/ParserAlerts.m; sourceTree = "<group>"; };
 		593D03BF17FB4EEA00B79EFB /* BARTicus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTicus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		593D03C217FB4EEA00B79EFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		593D03C417FB4EEA00B79EFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -149,7 +155,11 @@
 				593D03FD17FBA17E00B79EFB /* Train.h */,
 				593D03FE17FBA17E00B79EFB /* Train.m */,
 				593D040017FBAA1E00B79EFB /* ParserSchedule.h */,
+				5902FDBD1805E78C00F4BFC8 /* ParserAlerts.h */,
+				5902FDBE1805E78C00F4BFC8 /* ParserAlerts.m */,
 				593D040117FBAA1E00B79EFB /* ParserSchedule.m */,
+				5902FDBA1805E57200F4BFC8 /* Alerts.h */,
+				5902FDBB1805E57200F4BFC8 /* Alerts.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -236,6 +246,8 @@
 				593D03FA17FB776200B79EFB /* ParserStations.m in Sources */,
 				593D03FF17FBA17E00B79EFB /* Train.m in Sources */,
 				593D040217FBAA1E00B79EFB /* ParserSchedule.m in Sources */,
+				5902FDBC1805E57200F4BFC8 /* Alerts.m in Sources */,
+				5902FDBF1805E78D00F4BFC8 /* ParserAlerts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

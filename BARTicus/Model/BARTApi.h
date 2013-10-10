@@ -10,6 +10,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import "Station.h"
 #import "Schedule.h"
+#import "Alerts.h"
 
 @interface BARTApi : NSObject <CLLocationManagerDelegate>
 
@@ -18,4 +19,5 @@
 
 - (Station *)findClosestStation;
 - (Schedule *)getScheduleForStation:(Station *)station;
+- (Alerts *)getAlerts;
 @end

@@ -9,10 +9,12 @@
 #import "BARTApi.h"
 #import "ParserStations.h"
 #import "ParserSchedule.h"
+#import "ParserAlerts.h"
 
 
 #define API_STATION @"http://api.bart.gov/api/stn.aspx?cmd=stns&key=MW9S-E7SL-26DU-VV8V"
 #define API_ETD @"http://api.bart.gov/api/etd.aspx?cmd=etd&key=MW9S-E7SL-26DU-VV8V&orig=%@"
+#define API_BSA @"http://api.bart.gov/api/etd.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V"
 
 @interface BARTApi()
 
@@ -32,6 +34,17 @@
 - (void)endNetworkActivity
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (Alerts *)getAlerts
+{
+    NSURL *url = [NSURL URLWithString:API_BSA];
+    [self beginNetworkActivity];
+    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    ParserAlerts *alertsParser = [[ParserAlerts alloc] initWithParser:parser];
+    [self endNetworkActivity];
+    
+    return alertsParser.alerts;
 }
 
 // Try and load a Schedule for the specified station

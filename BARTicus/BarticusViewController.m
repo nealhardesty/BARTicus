@@ -91,6 +91,8 @@
 {
     //NSLog(@"got refresh");
     dispatch_async(dispatch_queue_create("Reload Data", NULL), ^{
+        
+        // First, find the closest station
         self.closestStation = [self.bartapi findClosestStation];
         //NSLog(@"closest: %@", closest);
         
@@ -100,6 +102,7 @@
         });
         
 
+        // Now load it's schedule
         Schedule *schedule = [self.bartapi getScheduleForStation:self.closestStation];
         //NSLog(@"schedule: %@", schedule);
         
@@ -121,6 +124,18 @@
             [self.tableView reloadData];
             
         });
+        
+        // And finally, check if there are any service announcements/alerts
+        Alerts *alerts = [self.bartapi getAlerts];
+        if(!alerts.infoOnly) {
+            NSLog(@"Got some alerts: %@", alerts);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] init];
+                [alertButtonItem setCustomView: alertButton];
+                self.navigationController.navigationItem.rightBarButtonItem = alertButtonItem;
+            });
+        }
         
 
     });
