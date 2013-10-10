@@ -131,10 +131,11 @@
             NSLog(@"Got some alerts: %@", alerts);
             dispatch_async(dispatch_get_main_queue(), ^{
                 // TODO: Make this work...
-                UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
-                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] init];
-                [alertButtonItem setCustomView: alertButton];
-                self.navigationController.navigationItem.rightBarButtonItem = alertButtonItem;
+                //UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] initWithImage:<#(UIImage *)#> style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:<#(SEL)#>:UIBarButtonSystemItem target:nil action:nil];
+                //[alertButtonItem setCustomView: alertButton];
+                [self.navigationItem setRightBarButtonItem:alertButtonItem];
+                
             });
         }
         
