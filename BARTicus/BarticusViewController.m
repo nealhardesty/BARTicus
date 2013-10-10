@@ -130,6 +130,7 @@
         if(!alerts.infoOnly) {
             NSLog(@"Got some alerts: %@", alerts);
             dispatch_async(dispatch_get_main_queue(), ^{
+                // TODO: Make this work...
                 UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
                 UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] init];
                 [alertButtonItem setCustomView: alertButton];
