@@ -134,9 +134,9 @@
         if(!alerts.infoOnly) {
             NSLog(@"Got some alerts: %@", alerts);
             dispatch_async(dispatch_get_main_queue(), ^{
-                // TODO: Make this work...
+                UIImage *warningImage = [UIImage imageNamed:@"warning.png"];
                 //UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
-                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] initWithImage:<#(UIImage *)#> style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:<#(SEL)#>:UIBarButtonSystemItem target:nil action:nil];
+                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] initWithImage:warningImage style:UIBarButtonItemStylePlain target:self action:@selector(didClickAlertButton)];
                 //[alertButtonItem setCustomView: alertButton];
                 [self.navigationItem setRightBarButtonItem:alertButtonItem];
                 
@@ -146,6 +146,19 @@
 
     });
     
+}
+
+#define ALERTS_SEGUE_IDENT @"Alerts Segue"
+- (void)didClickAlertButton {
+    [self performSegueWithIdentifier:ALERTS_SEGUE_IDENT sender:self];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:ALERTS_SEGUE_IDENT]) {
+        UIViewController *controller = segue.destinationViewController;
+        NSLog(@"%@", controller);
+    }
 }
 
 - (void)viewDidLoad

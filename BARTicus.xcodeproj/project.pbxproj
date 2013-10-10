@@ -29,6 +29,8 @@
 		593D03FF17FBA17E00B79EFB /* Train.m in Sources */ = {isa = PBXBuildFile; fileRef = 593D03FE17FBA17E00B79EFB /* Train.m */; };
 		593D040217FBAA1E00B79EFB /* ParserSchedule.m in Sources */ = {isa = PBXBuildFile; fileRef = 593D040117FBAA1E00B79EFB /* ParserSchedule.m */; };
 		59D3DFD618074E26003BBDDE /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D3DFD518074E26003BBDDE /* warning.png */; };
+		59D3DFD818075677003BBDDE /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 59D3DFD718075677003BBDDE /* warning@2x.png */; };
+		59D3DFDE18075CA6003BBDDE /* AlertsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D3DFDD18075CA6003BBDDE /* AlertsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,9 @@
 		593D040017FBAA1E00B79EFB /* ParserSchedule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParserSchedule.h; path = Model/ParserSchedule.h; sourceTree = "<group>"; };
 		593D040117FBAA1E00B79EFB /* ParserSchedule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParserSchedule.m; path = Model/ParserSchedule.m; sourceTree = "<group>"; };
 		59D3DFD518074E26003BBDDE /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = warning.png; path = BARTicus/Images/warning.png; sourceTree = "<group>"; };
+		59D3DFD718075677003BBDDE /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "warning@2x.png"; path = "BARTicus/Images/warning@2x.png"; sourceTree = "<group>"; };
+		59D3DFDC18075CA6003BBDDE /* AlertsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertsViewController.h; sourceTree = "<group>"; };
+		59D3DFDD18075CA6003BBDDE /* AlertsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +127,8 @@
 				593D03DD17FB4EEA00B79EFB /* BarticusViewController.h */,
 				593D03DE17FB4EEA00B79EFB /* BarticusViewController.m */,
 				593D03C917FB4EEA00B79EFB /* Supporting Files */,
+				59D3DFDC18075CA6003BBDDE /* AlertsViewController.h */,
+				59D3DFDD18075CA6003BBDDE /* AlertsViewController.m */,
 			);
 			path = BARTicus;
 			sourceTree = "<group>";
@@ -170,6 +177,7 @@
 		59D3DFD41807495E003BBDDE /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				59D3DFD718075677003BBDDE /* warning@2x.png */,
 				59D3DFD518074E26003BBDDE /* warning.png */,
 			);
 			name = Images;
@@ -239,6 +247,7 @@
 				593D03D917FB4EEA00B79EFB /* Default-568h@2x.png in Resources */,
 				593D03DC17FB4EEA00B79EFB /* MainStoryboard.storyboard in Resources */,
 				59D3DFD618074E26003BBDDE /* warning.png in Resources */,
+				59D3DFD818075677003BBDDE /* warning@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,6 +270,7 @@
 				593D040217FBAA1E00B79EFB /* ParserSchedule.m in Sources */,
 				5902FDBC1805E57200F4BFC8 /* Alerts.m in Sources */,
 				5902FDBF1805E78D00F4BFC8 /* ParserAlerts.m in Sources */,
+				59D3DFDE18075CA6003BBDDE /* AlertsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
