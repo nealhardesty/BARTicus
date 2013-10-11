@@ -34,29 +34,39 @@
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER];
     }
+    
+    NSMutableAttributedString *detail = [[NSMutableAttributedString alloc] init];
+    NSAttributedString *commaString = [[NSAttributedString alloc] initWithString:@","];
+    
     NSArray *trains = [self.currentTrainsGroupedByDestinationSortedByTime objectAtIndex:indexPath.item];
     BOOL first=YES;
     for(Train *train in trains) {
         Station *destinationStation = self.bartapi.stationsByAbbreviation[train.destination];
+        
         cell.textLabel.text = destinationStation.name;
+        
         if(first) {
             first=NO;
-            cell.detailTextLabel.text = [self formatMinutes:train.minutes];
         } else {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@,%@", cell.detailTextLabel.text, [self formatMinutes:train.minutes]];
+            [detail appendAttributedString:commaString];
         }
+        [detail appendAttributedString:[self formatMinutes:train.minutes]];
     }
+    [detail appendAttributedString:[[NSAttributedString alloc] initWithString:@" mins"]];
     
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ mins", cell.detailTextLabel.text];
+    [cell.detailTextLabel setAttributedText:detail];
     
     return cell;
 }
 
-- (NSString *)formatMinutes:(short)minutes {
+- (NSAttributedString *)formatMinutes:(short)minutes {
     if(minutes == 0) {
-        return @"<at station>";
+        UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:18.0f];
+        NSDictionary *atStationAttributes = @{NSFontAttributeName:font, NSForegroundColorAttributeName:[UIColor greenColor]};
+        NSAttributedString *atStationFormat = [[NSAttributedString alloc] initWithString:@"at station" attributes:atStationAttributes];
+        return atStationFormat;
     } else {
-        return [NSString stringWithFormat:@"%hd", minutes];
+        return [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"%hd", minutes]];
     }
     
 }
