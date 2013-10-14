@@ -18,7 +18,8 @@
 {
     [super viewDidLoad];
 	self.title = @"System Alerts";
-    [self.theText setText:@"System Alerts Will Go Here ..."];
+    //[self.theText setText:@"System Alerts Will Go Here ..."];
+    [self.theText setText:self.alerts.description];
 }
 
 

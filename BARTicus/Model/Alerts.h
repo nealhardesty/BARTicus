@@ -10,7 +10,9 @@
 
 @interface Alerts : NSObject
 @property (nonatomic, readonly) BOOL infoOnly;
-@property (nonatomic, strong) NSArray *infoMessages;
-@property (nonatomic, strong) NSArray *emergencies;
-@property (nonatomic, strong) NSArray *delays;
+@property (nonatomic, strong) NSString *dateString;
+@property (nonatomic, strong) NSString *timeString;
+@property (nonatomic, strong) NSMutableArray *infoMessages;
+@property (nonatomic, strong) NSMutableArray *emergencies;
+@property (nonatomic, strong) NSMutableArray *delays;
 @end

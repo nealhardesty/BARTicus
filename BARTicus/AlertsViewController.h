@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Model/Alerts.h"
 
 @interface AlertsViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *theText;
-
+@property (weak, nonatomic) Alerts *alerts;
 @end

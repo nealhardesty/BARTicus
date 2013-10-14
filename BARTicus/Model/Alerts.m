@@ -18,7 +18,7 @@
 - (NSArray *) infoMessages
 {
     if(!_infoMessages) {
-        _infoMessages = [[NSArray alloc] init];
+        _infoMessages = [[NSMutableArray alloc] init];
     }
     return _infoMessages;
 }
@@ -26,7 +26,7 @@
 - (NSArray *) emergencies
 {
     if(!_emergencies) {
-        _emergencies = [[NSArray alloc] init];
+        _emergencies = [[NSMutableArray alloc] init];
     }
     return _emergencies;
 }
@@ -34,7 +34,7 @@
 - (NSArray *) delays
 {
     if(!_delays) {
-        _delays = [[NSArray alloc] init];
+        _delays = [[NSMutableArray alloc] init];
     }
     return _delays;
 }
@@ -44,7 +44,7 @@
     if(self.infoOnly) {
         return @"No Alerts";
     } else {
-        return [NSString stringWithFormat:@"Emergencies:%d Delays:%d", [self.emergencies count], [self.delays count]];
+        return [NSString stringWithFormat:@"%@ %@ Info:%d Emergencies:%d Delays:%d", self.dateString, self.timeString, [self.infoMessages count], [self.emergencies count], [self.delays count]];
     }
 }
 

@@ -7,12 +7,14 @@
 //
 
 #import "BarticusViewController.h"
+#import "AlertsViewController.h"
 #import "Model/BARTApi.h"
 
 @interface BarticusViewController ()
 @property (nonatomic, strong) BARTApi *bartapi;
 @property (nonatomic, strong) Station *closestStation;
 @property (nonatomic, strong) NSArray *currentTrainsGroupedByDestinationSortedByTime;
+@property (nonatomic, strong) Alerts *alerts;
 @end
 
 @implementation BarticusViewController
@@ -140,9 +142,10 @@
         });
         
         // And finally, check if there are any service announcements/alerts
-        Alerts *alerts = [self.bartapi getAlerts];
-        if(!alerts.infoOnly) {
-            NSLog(@"Got some alerts: %@", alerts);
+        self.alerts = [self.bartapi getAlerts];
+        NSLog(@"alerts: %@", self.alerts);
+        if(!self.alerts.infoOnly) {
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *warningImage = [UIImage imageNamed:@"warning.png"];
                 //UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
@@ -166,8 +169,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:ALERTS_SEGUE_IDENT]) {
-        UIViewController *controller = segue.destinationViewController;
-        NSLog(@"%@", controller);
+        //UIViewController *controller = segue.destinationViewController;
+        //NSLog(@"%@", controller);
+        AlertsViewController *controller = (AlertsViewController *)segue.destinationViewController;
+        controller.alerts = self.alerts;
     }
 }
 
