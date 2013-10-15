@@ -27,7 +27,7 @@
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
-    self.valueBuffer = [CDATABlock description];
+    self.valueBuffer = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
 }
 
 
@@ -44,11 +44,11 @@
 {
     if([elementName isEqualToString:@"bsa"]) {
         if([self.currentMessageType isEqualToString:INFORMATION_TYPE_STRING]) {
-            [self.alerts.infoMessages addObject:self.valueBuffer];
+            [self.alerts.infoMessages addObject:self.currentMessage];
         } else if([self.currentMessageType isEqualToString:EMERGENCY_TYPE_STRING]) {
-            [self.alerts.emergencies addObject:self.valueBuffer];
+            [self.alerts.emergencies addObject:self.currentMessage];
         } else if([self.currentMessageType isEqualToString:DELAY_TYPE_STRING]) {
-            [self.alerts.delays addObject:self.valueBuffer];
+            [self.alerts.delays addObject:self.currentMessage];
         }
     } else if([elementName isEqualToString:@"type"]) {
         self.currentMessageType = self.valueBuffer;

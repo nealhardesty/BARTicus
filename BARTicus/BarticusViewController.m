@@ -145,12 +145,9 @@
         self.alerts = [self.bartapi getAlerts];
         NSLog(@"alerts: %@", self.alerts);
         if(!self.alerts.infoOnly) {
-            
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *warningImage = [UIImage imageNamed:@"warning.png"];
-                //UIButton *alertButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
-                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] initWithImage:warningImage style:UIBarButtonItemStylePlain target:self action:@selector(didClickAlertButton)];
-                //[alertButtonItem setCustomView: alertButton];
+                UIBarButtonItem *alertButtonItem=[[UIBarButtonItem alloc] initWithImage:warningImage style:UIBarButtonItemStyleBordered target:self action:@selector(didClickAlertButton)];
                 [self.navigationItem setRightBarButtonItem:alertButtonItem];
                 
             });
