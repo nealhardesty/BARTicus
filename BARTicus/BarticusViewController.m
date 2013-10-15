@@ -173,7 +173,7 @@
     }
 }
 
-- (void)viewDidLoad
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidLoad];
     [self showAndStartRefresh];
