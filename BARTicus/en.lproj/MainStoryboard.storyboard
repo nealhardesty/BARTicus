@@ -116,26 +116,6 @@
             <point key="canvasLocation" x="389" y="-62"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="AlertsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AlertsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="theText" candidateClass="UITextView"/>
-            </relationships>
-        </class>
-        <class className="BarticusViewController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BarticusViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="refreshAction:" candidateClass="UIRefreshControl"/>
-            </relationships>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="UIRefreshControl" superclassName="UIControl">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

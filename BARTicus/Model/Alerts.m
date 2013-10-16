@@ -11,8 +11,7 @@
 @implementation Alerts
 
 - (BOOL) infoOnly {
-    //return [self.emergencies count] > 0 || [self.delays count] > 0;
-    return NO;
+    return !( (self.emergencies && [self.emergencies count] > 0) || (self.delays && [self.delays count] > 0) );
 }
 
 - (NSArray *) infoMessages

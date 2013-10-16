@@ -17,12 +17,25 @@
 #define API_BSA @"http://api.bart.gov/api/bsa.aspx?cmd=bsa&key=MW9S-E7SL-26DU-VV8V"
 
 @interface BARTApi()
-
+@property (nonatomic, strong, readonly) CLLocationManager *locationManager;
 @end
 
 @implementation BARTApi
 
 @synthesize stationsByAbbreviation = _stationsByAbbreviation;
+@synthesize locationManager = _locationManager;
+
+- (CLLocationManager *)locationManager
+{
+    if(!_locationManager) {
+        _locationManager = [[CLLocationManager alloc] init];
+        _locationManager.delegate = self;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager.distanceFilter = kCLDistanceFilterNone;
+    }
+    
+    return _locationManager;
+}
 
 // Turn on the network activity indicator
 - (void)beginNetworkActivity
@@ -114,14 +127,11 @@
 
 - (CLLocationCoordinate2D) getLocation
 {
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    locationManager.distanceFilter = kCLDistanceFilterNone;
-    [locationManager startUpdatingLocation];
-    CLLocation *location = [locationManager location];
+
+    [self.locationManager startUpdatingLocation];
+    CLLocation *location = [self.locationManager location];
     CLLocationCoordinate2D coord = [location coordinate];
-    
+    [self.locationManager stopUpdatingLocation];
     return coord;
 }
 
