@@ -121,14 +121,14 @@
 		593D03C817FB4EEA00B79EFB /* BARTicus */ = {
 			isa = PBXGroup;
 			children = (
+				593D03C917FB4EEA00B79EFB /* Supporting Files */,
 				59D3DFD41807495E003BBDDE /* Images */,
 				593D03E517FB57EC00B79EFB /* Model */,
 				593D03DA17FB4EEA00B79EFB /* MainStoryboard.storyboard */,
-				593D03DD17FB4EEA00B79EFB /* BarticusViewController.h */,
-				593D03DE17FB4EEA00B79EFB /* BarticusViewController.m */,
-				593D03C917FB4EEA00B79EFB /* Supporting Files */,
 				59D3DFDC18075CA6003BBDDE /* AlertsViewController.h */,
 				59D3DFDD18075CA6003BBDDE /* AlertsViewController.m */,
+				593D03DD17FB4EEA00B79EFB /* BarticusViewController.h */,
+				593D03DE17FB4EEA00B79EFB /* BarticusViewController.m */,
 			);
 			path = BARTicus;
 			sourceTree = "<group>";

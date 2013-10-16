@@ -194,9 +194,8 @@
 // Force the refresh indicator on to the screen, and animate it
 - (void)showRefresh {
     [self.refreshControl beginRefreshing];
-    CGPoint newOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
-    [self.tableView setContentOffset:newOffset
-                            animated:YES];
+    //CGPoint newOffset = CGPointMake(0, -self.refreshControl.frame.size.height);
+    //[self.tableView setContentOffset:newOffset animated:YES];
     
 }
 
