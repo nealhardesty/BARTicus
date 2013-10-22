@@ -24,41 +24,59 @@
     return 1;
 }
 
+- (BOOL)hasTrains {
+    //return (self.currentTrainsGroupedByDestinationSortedByTime && [self.currentTrainsGroupedByDestinationSortedByTime count] > 0);
+    return NO;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.currentTrainsGroupedByDestinationSortedByTime count];
+    if([self hasTrains]) {
+        return [self.currentTrainsGroupedByDestinationSortedByTime count];
+    } else {
+        return 1; // So we can show an error message
+    }
 }
 
 #define CELL_IDENTIFIER @"Schedule Cell"
+#define CELL_IDENTIFIER_NO_SCHEDULE @"Schedule Cell No Schedule"
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
-    if(!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER];
-    }
-    
-    NSMutableAttributedString *detail = [[NSMutableAttributedString alloc] init];
-    NSAttributedString *commaString = [[NSAttributedString alloc] initWithString:@","];
-    
-    NSArray *trains = [self.currentTrainsGroupedByDestinationSortedByTime objectAtIndex:indexPath.item];
-    BOOL first=YES;
-    for(Train *train in trains) {
-        Station *destinationStation = self.bartapi.stationsByAbbreviation[train.destination];
-        
-        cell.textLabel.text = destinationStation.name;
-        
-        if(first) {
-            first=NO;
-        } else {
-            [detail appendAttributedString:commaString];
+    if([self hasTrains]) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER];
+        if(!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER];
         }
-        [detail appendAttributedString:[self formatMinutes:train.minutes]];
+        
+        NSMutableAttributedString *detail = [[NSMutableAttributedString alloc] init];
+        NSAttributedString *commaString = [[NSAttributedString alloc] initWithString:@","];
+        
+        NSArray *trains = [self.currentTrainsGroupedByDestinationSortedByTime objectAtIndex:indexPath.item];
+        BOOL first=YES;
+        for(Train *train in trains) {
+            Station *destinationStation = self.bartapi.stationsByAbbreviation[train.destination];
+            
+            cell.textLabel.text = destinationStation.name;
+            
+            if(first) {
+                first=NO;
+            } else {
+                [detail appendAttributedString:commaString];
+            }
+            [detail appendAttributedString:[self formatMinutes:train.minutes]];
+        }
+        [detail appendAttributedString:[[NSAttributedString alloc] initWithString:@" mins"]];
+        
+        [cell.detailTextLabel setAttributedText:detail];
+        
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
+        if(!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
+        }
+        return cell;
     }
-    [detail appendAttributedString:[[NSAttributedString alloc] initWithString:@" mins"]];
-    
-    [cell.detailTextLabel setAttributedText:detail];
-    
-    return cell;
 }
 
 - (NSAttributedString *)formatMinutes:(short)minutes {
@@ -143,7 +161,7 @@
         
         // And finally, check if there are any service announcements/alerts
         self.alerts = [self.bartapi getAlerts];
-        NSLog(@"alerts: %@", self.alerts);
+        //NSLog(@"alerts: %@", self.alerts);
         if(!self.alerts.infoOnly) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIImage *warningImage = [UIImage imageNamed:@"warning.png"];
