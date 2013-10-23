@@ -29,6 +29,9 @@
 {
     if(!_locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
+        if(!_locationManager) {
+            return nil;
+        }
         _locationManager.delegate = self;
         _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
         _locationManager.distanceFilter = kCLDistanceFilterNone;

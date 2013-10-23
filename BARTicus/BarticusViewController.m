@@ -25,8 +25,7 @@
 }
 
 - (BOOL)hasTrains {
-    //return (self.currentTrainsGroupedByDestinationSortedByTime && [self.currentTrainsGroupedByDestinationSortedByTime count] > 0);
-    return NO;
+    return (self.currentTrainsGroupedByDestinationSortedByTime && [self.currentTrainsGroupedByDestinationSortedByTime count] > 0);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -40,6 +39,7 @@
 
 #define CELL_IDENTIFIER @"Schedule Cell"
 #define CELL_IDENTIFIER_NO_SCHEDULE @"Schedule Cell No Schedule"
+#define CELL_IDENTIFIER_REFRESHING @"Schedule Cell Refreshing"
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if([self hasTrains]) {
@@ -71,9 +71,17 @@
         
         return cell;
     } else {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
-        if(!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
+        UITableViewCell *cell;
+        if(self.currentTrainsGroupedByDestinationSortedByTime) {
+            cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
+            if(!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER_NO_SCHEDULE];
+            }
+        } else {
+            cell = [tableView dequeueReusableCellWithIdentifier:CELL_IDENTIFIER_REFRESHING];
+            if(!cell) {
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CELL_IDENTIFIER_REFRESHING];
+            }
         }
         return cell;
     }
