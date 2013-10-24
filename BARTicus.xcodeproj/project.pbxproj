@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5902FDBC1805E57200F4BFC8 /* Alerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 5902FDBB1805E57200F4BFC8 /* Alerts.m */; };
 		5902FDBF1805E78D00F4BFC8 /* ParserAlerts.m in Sources */ = {isa = PBXBuildFile; fileRef = 5902FDBE1805E78C00F4BFC8 /* ParserAlerts.m */; };
+		590F796C1818A70200D43D60 /* BARTicusIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 590F796B1818A70200D43D60 /* BARTicusIcon57x57.png */; };
+		590F796E1818A74500D43D60 /* BARTicusIcon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = 590F796D1818A74500D43D60 /* BARTicusIcon114x114.png */; };
 		593D03C317FB4EEA00B79EFB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C217FB4EEA00B79EFB /* UIKit.framework */; };
 		593D03C517FB4EEA00B79EFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C417FB4EEA00B79EFB /* Foundation.framework */; };
 		593D03C717FB4EEA00B79EFB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 593D03C617FB4EEA00B79EFB /* CoreGraphics.framework */; };
@@ -38,6 +40,8 @@
 		5902FDBB1805E57200F4BFC8 /* Alerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Alerts.m; path = Model/Alerts.m; sourceTree = "<group>"; };
 		5902FDBD1805E78C00F4BFC8 /* ParserAlerts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ParserAlerts.h; path = Model/ParserAlerts.h; sourceTree = "<group>"; };
 		5902FDBE1805E78C00F4BFC8 /* ParserAlerts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ParserAlerts.m; path = Model/ParserAlerts.m; sourceTree = "<group>"; };
+		590F796B1818A70200D43D60 /* BARTicusIcon57x57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BARTicusIcon57x57.png; sourceTree = "<group>"; };
+		590F796D1818A74500D43D60 /* BARTicusIcon114x114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BARTicusIcon114x114.png; sourceTree = "<group>"; };
 		593D03BF17FB4EEA00B79EFB /* BARTicus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BARTicus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		593D03C217FB4EEA00B79EFB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		593D03C417FB4EEA00B79EFB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +97,8 @@
 		593D03B617FB4EEA00B79EFB = {
 			isa = PBXGroup;
 			children = (
+				590F796D1818A74500D43D60 /* BARTicusIcon114x114.png */,
+				590F796B1818A70200D43D60 /* BARTicusIcon57x57.png */,
 				593D03C817FB4EEA00B79EFB /* BARTicus */,
 				593D03C117FB4EEA00B79EFB /* Frameworks */,
 				593D03C017FB4EEA00B79EFB /* Products */,
@@ -248,6 +254,8 @@
 				593D03DC17FB4EEA00B79EFB /* MainStoryboard.storyboard in Resources */,
 				59D3DFD618074E26003BBDDE /* warning.png in Resources */,
 				59D3DFD818075677003BBDDE /* warning@2x.png in Resources */,
+				590F796C1818A70200D43D60 /* BARTicusIcon57x57.png in Resources */,
+				590F796E1818A74500D43D60 /* BARTicusIcon114x114.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
