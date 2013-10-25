@@ -13,7 +13,9 @@
 @interface BarticusViewController ()
 @property (nonatomic, strong) BARTApi *bartapi;
 @property (nonatomic, strong) Station *closestStation;
+@property (nonatomic, strong) Schedule *schedule;
 @property (nonatomic, strong) NSArray *currentTrainsGroupedByDestinationSortedByTime;
+@property (nonatomic, strong) NSTimer *scheduleRefreshTimer;
 @property (nonatomic, strong) Alerts *alerts;
 @end
 
@@ -126,9 +128,41 @@
     }
 }
 
+// Called every 60 seconds
+- (void)onTick:(NSTimer *)timer {
+    NSLog(@"timertick");
+    if(self.schedule) {
+        [self.schedule decrementSchedule];
+        self.currentTrainsGroupedByDestinationSortedByTime = [self.schedule getTrainsGroupedByDestinationSortedByTime];
+        NSLog(@"decrementing schedule");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }
+}
+
+- (void)startRefreshTimer {
+    NSLog(@"startRefreshTimer");
+    // Start the timer for automatic decrementing:
+    if(!self.scheduleRefreshTimer) {
+        self.scheduleRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(onTick:) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)stopRefreshTimer {
+    NSLog(@"stopRefreshTimer");
+    if(self.scheduleRefreshTimer) {
+        // Stop the timer
+        [self.scheduleRefreshTimer invalidate];
+        self.scheduleRefreshTimer = nil;
+    }
+}
+
 // This actually does the API refresh
 - (void)doRefresh
 {
+    //[self stopRefreshTimer];
+    
     //NSLog(@"got refresh");
     dispatch_async(dispatch_queue_create("Reload Data", NULL), ^{
         
@@ -143,12 +177,14 @@
         
 
         // Now load it's schedule
-        Schedule *schedule = [self.bartapi getScheduleForStation:self.closestStation];
+        self.schedule = [self.bartapi getScheduleForStation:self.closestStation];
         //NSLog(@"schedule: %@", schedule);
         
-        self.currentTrainsGroupedByDestinationSortedByTime = [schedule getTrainsGroupedByDestinationSortedByTime];
+        self.currentTrainsGroupedByDestinationSortedByTime = [self.schedule getTrainsGroupedByDestinationSortedByTime];
         
         //NSLog(@"station info: %@", [self.bartapi.stationsByAbbreviation objectForKey:closest.abbreviation]);
+        
+        [self startRefreshTimer];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDate *now = [[NSDate alloc] init];

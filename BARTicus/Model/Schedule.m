@@ -15,6 +15,23 @@
 }
 
 
+/*
+ * Decrement the schedule of each train by 1 minute, removing negative values
+ */
+- (void)decrementSchedule
+{
+    if(self.trains) {
+        NSMutableArray *trainsToKeep = [NSMutableArray arrayWithCapacity:[self.trains count]];
+        for(Train *train in self.trains) {
+            train.minutes = train.minutes - 1;
+            if(train.minutes >= 0) {
+                [trainsToKeep addObject:train];
+            }
+        }
+        [self.trains setArray:trainsToKeep];
+    }
+}
+
 
 /*
  * Convenience method to add a new train 
