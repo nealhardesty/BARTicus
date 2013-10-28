@@ -129,28 +129,27 @@
 }
 
 // Called every 60 seconds
-- (void)onTick:(NSTimer *)timer {
-    NSLog(@"timertick");
+- (void)onAutoRefreshTick:(NSTimer *)timer {
     if(self.schedule) {
         [self.schedule decrementSchedule];
         self.currentTrainsGroupedByDestinationSortedByTime = [self.schedule getTrainsGroupedByDestinationSortedByTime];
-        NSLog(@"decrementing schedule");
+        //NSLog(@"decrementing schedule");
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
     }
 }
 
-- (void)startRefreshTimer {
-    NSLog(@"startRefreshTimer");
+- (void)startAutoRefreshTimer {
+    //NSLog(@"startRefreshTimer");
     // Start the timer for automatic decrementing:
     if(!self.scheduleRefreshTimer) {
-        self.scheduleRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(onTick:) userInfo:nil repeats:NO];
+        self.scheduleRefreshTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(onAutoRefreshTick:) userInfo:nil repeats:YES];
     }
 }
 
-- (void)stopRefreshTimer {
-    NSLog(@"stopRefreshTimer");
+- (void)stopAutoRefreshTimer {
+    //NSLog(@"stopRefreshTimer");
     if(self.scheduleRefreshTimer) {
         // Stop the timer
         [self.scheduleRefreshTimer invalidate];
@@ -161,7 +160,7 @@
 // This actually does the API refresh
 - (void)doRefresh
 {
-    //[self stopRefreshTimer];
+    [self stopAutoRefreshTimer];
     
     //NSLog(@"got refresh");
     dispatch_async(dispatch_queue_create("Reload Data", NULL), ^{
@@ -183,10 +182,12 @@
         self.currentTrainsGroupedByDestinationSortedByTime = [self.schedule getTrainsGroupedByDestinationSortedByTime];
         
         //NSLog(@"station info: %@", [self.bartapi.stationsByAbbreviation objectForKey:closest.abbreviation]);
-        
-        [self startRefreshTimer];
+
         
         dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [self startAutoRefreshTimer];
+            
             NSDate *now = [[NSDate alloc] init];
             NSDateFormatter *format = [[NSDateFormatter alloc] init];
             [format setDateFormat:@"'Last Updated' h:mm:ss a"];
@@ -243,6 +244,12 @@
     [self.refreshControl addTarget:self
                             action:@selector(refreshAction:)
                   forControlEvents:UIControlEventValueChanged];
+    
+}
+                          
+- (void)testTheTimer:(NSTimer *)timer
+{
+    NSLog(@"testing the timer...");
 }
 
 // Called from viewDidLoad and as callback for clicking refresh.

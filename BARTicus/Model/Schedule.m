@@ -28,7 +28,12 @@
                 [trainsToKeep addObject:train];
             }
         }
-        [self.trains setArray:trainsToKeep];
+
+        [self.trains removeAllObjects];
+        [self.trainsByDestination removeAllObjects];
+        for(Train *train in trainsToKeep) {
+            [self addTrain:train];
+        }
     }
 }
 
