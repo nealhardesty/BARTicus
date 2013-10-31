@@ -91,8 +91,14 @@
 
 - (NSAttributedString *)formatMinutes:(short)minutes {
     if(minutes == 0) {
-        UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:18.0f];
-        NSDictionary *atStationAttributes = @{NSFontAttributeName:font, NSForegroundColorAttributeName:[UIColor greenColor]};
+        /*IFontDescriptor *fontDescriptor =
+         [UIFontDescriptor preferredFontDescriptorWithTextStyle: UIFontTextStyleBody];
+         UIFontDescriptor *boldFontDescriptor =
+         [fontDescriptor fontDescriptorWithSymbolicTraits: UIFontDescriptorTraitBold];
+         UIFont *boldFont = [UIFont fontWithDescriptor: boldFontDescriptor size: 0.0]; */
+        //UIFont *font = [UIFont fontWithName:@"HelveticaNeue-Italic" size:18.0f];
+        //NSDictionary *atStationAttributes = @{NSFontAttributeName:font, NSForegroundColorAttributeName:[UIColor greenColor]};
+        NSDictionary *atStationAttributes = @{NSForegroundColorAttributeName:[UIColor greenColor]};
         NSAttributedString *atStationFormat = [[NSAttributedString alloc] initWithString:@"at station" attributes:atStationAttributes];
         return atStationFormat;
     } else {
