@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) NSArray *stations;
 @property (nonatomic, strong, readonly) NSDictionary *stationsByAbbreviation;
+@property (nonatomic, strong) NSString *lastErrorMessage;
 
 - (Station *)findClosestStation;
 - (Schedule *)getScheduleForStation:(Station *)station;

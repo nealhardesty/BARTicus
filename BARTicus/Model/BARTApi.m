@@ -52,42 +52,68 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-- (Alerts *)getAlerts
+// Fetch the data from a url
+// Returns nil and set's lastErrorMessage appropriately
+- (NSData *)fetch:(NSString *) urlString
 {
-    NSURL *url = [NSURL URLWithString:API_BSA];
+    NSURL *url = [NSURL URLWithString:urlString];
     [self beginNetworkActivity];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    ParserAlerts *alertsParser = [[ParserAlerts alloc] initWithParser:parser];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    NSURLResponse *response;
+    NSError *error;
+    NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
     [self endNetworkActivity];
-    
-    return alertsParser.alerts;
+    if(error) {
+        self.lastErrorMessage = error.description;
+        NSLog(@"fetch error on %@: %@", urlString, self.lastErrorMessage);
+        return nil;
+    } else {
+        return urlData;
+    }
 }
 
-// Try and load a Schedule for the specified station
+- (Alerts *)getAlerts
+{
+    NSData *alertsData = [self fetch:API_BSA];
+    if(alertsData) {
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:alertsData];
+        ParserAlerts *alertsParser = [[ParserAlerts alloc] initWithParser:parser];
+
+        return alertsParser.alerts;
+    } else {
+        return nil;
+    }
+}
+
+// Try to load a Schedule for the specified station
 - (Schedule *)getScheduleForStation:(Station *)station
 {
+    NSData *scheduleData = [self fetch:[NSString stringWithFormat:API_ETD, station.abbreviation]];
+    if(scheduleData) {
+        NSXMLParser *parser = [[NSXMLParser alloc] initWithData:scheduleData];
+        ParserSchedule *scheduleParser = [[ParserSchedule alloc] initWithParser:parser];
+        scheduleParser.station = station;
 
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:API_ETD, station.abbreviation]];
-    [self beginNetworkActivity];
-    NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-    ParserSchedule *scheduleParser = [[ParserSchedule alloc] initWithParser:parser];
-    scheduleParser.station = station;
-    [self endNetworkActivity];
-
-    return scheduleParser.schedule;
+        return scheduleParser.schedule;
+    } else {
+        return nil;
+    }
 }
 
 - (NSArray *)stations
 {
     if(!_stations) {
-        NSURL *url = [NSURL URLWithString:API_STATION];
-        [self beginNetworkActivity];
-        NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
-        ParserStations *stationParser = [[ParserStations alloc] initWithParser:parser];
-        [self endNetworkActivity];
-        
-        _stations = stationParser.stations;
-        _stationsByAbbreviation = stationParser.stationsByAbbreviations;
+        NSData *stationsData = [self fetch:API_STATION];
+        if(stationsData) {
+            NSXMLParser *parser = [[NSXMLParser alloc] initWithData:stationsData];
+            ParserStations *stationParser = [[ParserStations alloc] initWithParser:parser];
+            [self endNetworkActivity];
+            
+            _stations = stationParser.stations;
+            _stationsByAbbreviation = stationParser.stationsByAbbreviations;
+        } else {
+            return nil;
+        }
     }
 
     return _stations;

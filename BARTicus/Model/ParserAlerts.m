@@ -43,12 +43,14 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
 {
     if([elementName isEqualToString:@"bsa"]) {
-        if([self.currentMessageType isEqualToString:INFORMATION_TYPE_STRING]) {
-            [self.alerts.infoMessages addObject:self.currentMessage];
-        } else if([self.currentMessageType isEqualToString:EMERGENCY_TYPE_STRING]) {
-            [self.alerts.emergencies addObject:self.currentMessage];
-        } else if([self.currentMessageType isEqualToString:DELAY_TYPE_STRING]) {
-            [self.alerts.delays addObject:self.currentMessage];
+        if(self.currentMessageType && self.currentMessage) {
+            if([self.currentMessageType isEqualToString:INFORMATION_TYPE_STRING]) {
+                [self.alerts.infoMessages addObject:self.currentMessage];
+            } else if([self.currentMessageType isEqualToString:EMERGENCY_TYPE_STRING]) {
+                [self.alerts.emergencies addObject:self.currentMessage];
+            } else if([self.currentMessageType isEqualToString:DELAY_TYPE_STRING]) {
+                [self.alerts.delays addObject:self.currentMessage];
+            }
         }
     } else if([elementName isEqualToString:@"type"]) {
         self.currentMessageType = self.valueBuffer;
