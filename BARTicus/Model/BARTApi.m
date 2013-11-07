@@ -27,15 +27,15 @@
 
 - (CLLocationManager *)locationManager
 {
+
+    // Note, we only keep _locationManager around so that the approval dialog sticks around.
+    _locationManager = [[CLLocationManager alloc] init];
     if(!_locationManager) {
-        _locationManager = [[CLLocationManager alloc] init];
-        if(!_locationManager) {
-            return nil;
-        }
-        _locationManager.delegate = self;
-        _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        _locationManager.distanceFilter = kCLDistanceFilterNone;
+        return nil;
     }
+    _locationManager.delegate = self;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
     
     return _locationManager;
 }
@@ -156,7 +156,6 @@
 
 - (CLLocationCoordinate2D) getLocation
 {
-
     [self.locationManager startUpdatingLocation];
     CLLocation *location = [self.locationManager location];
     CLLocationCoordinate2D coord = [location coordinate];
