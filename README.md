@@ -1,4 +1,4 @@
-BARTicus
-========
+BARTicus.ios
+============
 
-BARTicus
+BARTicus - An ultra simple BART train tracker.
